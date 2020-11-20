@@ -1,4 +1,4 @@
-package SOP_Project.ShippingModule;
+package KMITL.Registrar;
 
 import static org.junit.Assert.assertTrue;
 
