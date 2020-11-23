@@ -70,6 +70,9 @@
             <th scope="col"><h3>Shipping Option</h3></th>
             <th scope="col"><h3>Status</h3></th>
             <th scope="col">
+            <button class="btn btn-success my-2 my-sm-0"onclick="add()" >
+        Add
+      </button>
             </th>
           </tr>
         </thead>
@@ -98,6 +101,9 @@ axios
 
   function showDetail($id){
     window.location.href = "form.html?id=" + $id;
+  }
+  function add(){
+    window.location.href = "addShippingOrder.html";
   }
  </script>
 </html>
