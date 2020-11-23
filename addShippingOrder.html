@@ -15,9 +15,6 @@
                 <div class="list-group">
                     <div class="list-group" id="itemlist">
                     </div>
-                    <h1>Status</h1>
-                    <div class="list-group" id="thaiPost">
-                    </div>
                 </div>
             </div>
             <div class="col">
@@ -60,7 +57,7 @@
 		  
                         </select>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="updateShippingOrder()">Update</button>
+                    <button type="button" class="btn btn-primary" onclick="updateShippingOrder()">Add</button>
                 </form>
             </div>
         </div>
@@ -81,49 +78,6 @@
             .catch((err) => {
                 console.error(err);
             });
-    </script>
-    <script>
-        const order_id = location.search.split('id=')[1]
-        document.getElementById('orderTitle').innerText += order_id
-        axios
-            .get("http://localhost:8761/shipping/get/" + order_id)
-            .then(response => {
-                console.log("response: ", response.data)
-                const input = response.data
-                document.getElementById("userId").value = input.user_id
-                document.getElementById("address").value = input.address
-                document.getElementById("shopId").value = input.shop_id
-                document.getElementById("trackingCode").value = input.trackingCode
-                $("#shippingOption").val(input.shippingOption);
-                console.log(input.shippingOption);
-                $("#status").val(input.status);
-                axios.post('http://localhost:8761/tracking/getItem', {
-                        "barcode": trackingCode.value
-                    }).then(response => {
-                        const xxx = trackingCode.value
-                        console.log(xxx)
-                        const status = response.data.body
-                        const badcodeList = JSON.parse(status).response.items[xxx]
-                        console.log(badcodeList)
-
-
-                        const thaiP = document.getElementById('thaiPost');
-                        console.log(thaiP)
-                        for (let i = 0; i < badcodeList.length; i++) {
-                            console.log(badcodeList[i].barcode)
-                            thaiP.innerHTML += `<div class="card card-body">${badcodeList[i].barcode}
-                                    <br>${badcodeList[i].status_date}:${badcodeList[i].status_description}
-                                    <br>[${badcodeList[i].location}, ${badcodeList[i].postcode}]
-                                    </div>`
-                        }
-                    })
-                    .catch(err => {
-                        console.error(err)
-                    })
-            })
-            .catch(err => {
-                console.error(err)
-            })
     </script>
     <script>
         let items = [{
@@ -181,7 +135,6 @@
             var trackingCode = document.getElementById("trackingCode").value
             var status = document.getElementById("status").value
             var data = {
-                'id': order_id,
                 'user_id': user,
                 'address': address,
                 'item': selectedItems,
@@ -190,7 +143,7 @@
                 'trackingCode': trackingCode,
                 'status': status,
             }
-            axios.post("http://localhost:8761/shipping/update", data)
+            axios.post("http://localhost:8761/shipping/order", data)
                 .then(response => {
                     console.log("response: ", response.data)
 
@@ -201,10 +154,6 @@
         }
         // updateSelectedItemsForm();
         initItemField();
-    </script>
-    <script>
-        // Thai Post
-        console.log(trackingCode.value);
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
