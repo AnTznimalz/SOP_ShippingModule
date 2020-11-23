@@ -59,7 +59,7 @@ public class Tracking {
 	}
 
 	@RequestMapping(value = "/getItems", method = RequestMethod.POST)
-	public ResponseEntity getItems(@RequestBody ArrayList<BarcodeModel> items) {
+	public ResponseEntity<String> getItems(@RequestBody ArrayList<BarcodeModel> items) {
 		List<String> barcodes = new ArrayList<String>();
 		for (BarcodeModel i : items) {
 			barcodes.add(i.getBarcode());
@@ -68,13 +68,13 @@ public class Tracking {
 	}
 
 	@RequestMapping(value = "/getItem", method = RequestMethod.POST)
-	public ResponseEntity getItem(@RequestBody BarcodeModel barcode) {
+	public ResponseEntity<String> getItem(@RequestBody BarcodeModel barcode) {
 		List<String> barcodes = new ArrayList<String>();
 		barcodes.add(barcode.getBarcode());
-		return connectToThaiPostApi(barcodes);
+		return  new ResponseEntity(connectToThaiPostApi(barcodes), HttpStatus.OK);
 	}
 
-	private ResponseEntity connectToThaiPostApi(List<String> barcodes) {
+	private ResponseEntity<String> connectToThaiPostApi(List<String> barcodes) {
 		String targetURL = "https://trackapi.thailandpost.co.th/post/api/v1/track";
 		String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZWN1cmUtYXBpIiwiYXVkIjoic2VjdXJlLWFwcCIsInN1YiI6IkF1dGhvcml6YXRpb24iLCJleHAiOjE2MDg1Mjc0OTIsInJvbCI6WyJST0xFX1VTRVIiXSwiZCpzaWciOnsicCI6InpXNzB4IiwicyI6bnVsbCwidSI6IjExZGFkZmMyODE2Nzg0OGM4MzAyNTRhMDRiODZhZjU3IiwiZiI6InhzeiM5In19.33x5AjCNY4cT0Q6jQH0lYEPTDyIXmNssIRx5cntpxTkjrxrCw5sHrLicN2J1N66CBjQfFy8KzO7DLxYQGaY_cw";
 

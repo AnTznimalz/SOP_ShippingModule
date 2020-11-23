@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <title>Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#"
+        ><img
+          src="https://www.tarad.com/asset/tarad2016/shopdesign/images/icon-shop-merchant.png"
+          width="50"
+          height="50"
+          class="d-inline-block align-top"
+          alt=""
+          loading="lazy"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#"
+              >Admin <span class="sr-only"></span
+            ></a>
+          </li>
+        </ul>
+      </div>
+      <button class="btn btn-danger my-2 my-sm-0" type="submit">
+        ออกจากระบบ
+      </button>
+    </nav>
+  <form>
+   <div class="form-row">
+    <div class="form-group col-md-12">
+      <label>Shop_id</label>
+      <input id='shop' class="form" placeholder="Enter shop id">
+    </div>
+    <div class="form-group col-md-12">
+      <label>User_id</label>
+      <input id='user' class="form"  placeholder="Enter user id">
+    </div>
+    <div class="form-group col-md-12">
+      <label>Address</label>
+      <input id='address' type="text" class="form" placeholder="1234 Main St">
+    </div>
+    </div>
+  
+  <div class='form-row'>
+  <div class="form-group col-md-12">
+    <label>ShippingOption</label>
+  <select id='option'>
+    <option selected>Select shipping option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select>
+  </div>
+  <div class="form-group col-md-12">
+    <label>Item</label>
+  <select id='item'>
+    <option selected>Select item</option>
+    <option value="1">Item 1</option>
+    <option value="2">Item 2</option>
+    <option value="3">Item 3</option>
+  </select>
+  </div>
+  <div class="form-group col-md-12">
+    <label>Tracking Code</label>
+    <input id='track' class="form" placeholder="Enter Tracking Code">
+  </div>
+  </div>
+  
+  <button type="submit" class="btn btn-primary" onclick="Add()">Add</button>
+</form>
+<div class="card card-body" id='card'>
+</div>
+<script>
+  function Add() {
+     shop_id = document.getElementById("shop").value;
+     user_id = document.getElementById("user").value;
+     Address = document.getElementById("address").value;
+     option = document.getElementById("option").value;
+     item = document.getElementById("item").value;
+     track = document.getElementById("track").value;
+    $("#card").append('<div class="card card-body"><h1>Shipping Order</h1><br>Shop Id : ' + shop_id + '<br>User Id : ' +
+    user_id + '<br>Address : ' + Address + '<br> Option : ' + option + '<br> Item : ' + item + '<br> Track Number : ' + track +
+  '</div>');
+}
+
+
+function Delete(){
+  
+}
+</script>
+  </body>
+</html>
+
+

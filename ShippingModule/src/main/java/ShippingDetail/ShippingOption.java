@@ -1,26 +1,24 @@
 package ShippingDetail;
 
 public class ShippingOption {
-	private int id, price, time_estimate, item_id;
-	private String name;
+	private int price, time_estimate, shop_id;
+	private String id, name;
 	public ShippingOption() {
 		
 	}
-	public ShippingOption(int id, int price, int time_estimate, int item_id, String name) {
+	public ShippingOption(String id, int price, int time_estimate, int shop_id, String name) {
 		super();
 		this.id = id;
 		this.price = price;
 		this.time_estimate = time_estimate;
-		this.item_id = item_id;
+		this.shop_id = shop_id;
 		this.name = name;
 	}
-	
 
-
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int getPrice() {
@@ -35,11 +33,11 @@ public class ShippingOption {
 	public void setTime_estimate(int time_estimate) {
 		this.time_estimate = time_estimate;
 	}
-	public int getItem_id() {
-		return item_id;
+	public int getshop_id() {
+		return shop_id;
 	}
-	public void setItem_id(int item_id) {
-		this.item_id = item_id;
+	public void setshop_id(int shop_id) {
+		this.shop_id = shop_id;
 	}
 	public String getName() {
 		return name;

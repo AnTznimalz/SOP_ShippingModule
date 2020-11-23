@@ -1,6 +1,8 @@
 package ShippingDetail;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,42 +19,34 @@ public class ShippingApp {
 	ArrayList<ShippingOption> shippingOptions = new ArrayList<ShippingOption>();
 	ShippingApp(){}
 	
-	@RequestMapping(value="/creat",method=RequestMethod.POST)
-	public ResponseEntity<ShippingOption> addShippingOptions(@RequestBody ShippingOption shipping) {
-				return new ResponseEntity<ShippingOption>(shipping, HttpStatus.OK);
+	@RequestMapping(value="/create",method=RequestMethod.POST)
+	public String create(@RequestBody ShippingOption shipping) throws InterruptedException, ExecutionException {
+		return FirebaseShippingOption.createShippingOption(shipping);
 	}
 
-	@RequestMapping(value = "/getAll",method=RequestMethod.GET)
-	public ResponseEntity<ArrayList<ShippingOption>> getShippingOptions() {
-		return new ResponseEntity<ArrayList<ShippingOption>>(shippingOptions, HttpStatus.OK);
+	@RequestMapping(value = "/all",method=RequestMethod.GET)
+	public List<ShippingOption> getAll() throws InterruptedException, ExecutionException {
+		return FirebaseShippingOption.getAllShippingOption();
 	}
 	
-	@RequestMapping(value = "/getById/{id}",method=RequestMethod.GET)
-	public ResponseEntity<ShippingOption> getShippingOptions(@PathVariable("id") int id) {
-		ShippingOption t = shippingOptions.get(id-1);
-		return new ResponseEntity<ShippingOption>(t, HttpStatus.OK);
+	@RequestMapping(value = "/get/{id}",method=RequestMethod.GET)
+	public ShippingOption get(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
+		return FirebaseShippingOption.getShippingOption(id);
 	}
 	
-	@RequestMapping(value = "/getByItemId/{item_id}",method=RequestMethod.GET)
-	public ResponseEntity<ShippingOption> getShippingOptionsByItemId(@PathVariable("item_id") int item_id) {
-		 for (ShippingOption shipping : shippingOptions) {
-		        if (shipping.getItem_id() == item_id) {
-		            return new ResponseEntity<ShippingOption>(shipping, HttpStatus.OK);
-		        }
-		    }
-		    return null;
+	@RequestMapping(value = "/shop/{shop_id}",method=RequestMethod.GET)
+	public List<ShippingOption> getShopShippings(@PathVariable("shop_id") final String shop_id) throws InterruptedException, ExecutionException {
+		return FirebaseShippingOption.getShippingOptionByField(shop_id, "shop_id");
 	}
 	
-	@RequestMapping(value = "/{id}",method=RequestMethod.POST)
-	public ResponseEntity<ShippingOption> updateShippingOptions(@PathVariable("id") int id) {
-		ShippingOption t = shippingOptions.get(id-1);
-		return new ResponseEntity<ShippingOption>(t, HttpStatus.OK);
+	@RequestMapping(value = "/update",method=RequestMethod.POST)
+	public String update(@RequestBody ShippingOption s) throws InterruptedException, ExecutionException {
+		return FirebaseShippingOption.saveShippingOption(s);
 	}
 	
-	@RequestMapping(value = "/{id}",method=RequestMethod.DELETE)
-	public ResponseEntity<ShippingOption> deleteShippingOptions(@PathVariable("id") int id) {
-		ShippingOption t = shippingOptions.get(id-1);
-		return new ResponseEntity<ShippingOption>(t, HttpStatus.OK);
+	@RequestMapping(value = "/delete/{id}",method=RequestMethod.DELETE)
+	public String delete(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
+		return FirebaseShippingOption.deleteShippingOption(id);
 	}
 	
 }

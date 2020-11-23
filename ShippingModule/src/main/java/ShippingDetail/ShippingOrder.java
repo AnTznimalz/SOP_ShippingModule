@@ -3,7 +3,7 @@ package ShippingDetail;
 import java.util.ArrayList;
 
 public class ShippingOrder {
-	private int id, shop_id, user_id;
+	private String id, shop_id, user_id;
 	private String address;
 	private String shippingOption;
 	private ArrayList<Item> items;
@@ -15,38 +15,23 @@ public class ShippingOrder {
 		  Success
 	}
 	private ShippingStatus status;
-	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-	public String getTrackingCode() {
-		return trackingCode;
-	}
-	public void setTrackingCode(String trackingCode) {
-		this.trackingCode = trackingCode;
-	}
-	public ArrayList<Item> getItems() {
-		return items;
-	}
-	public void setItems(ArrayList<Item> items) {
-		this.items = items;
-	}
-	public int getShop_id() {
+	public String getShop_id() {
 		return shop_id;
 	}
-	public void setShop_id(int shop_id) {
+	public void setShop_id(String shop_id) {
 		this.shop_id = shop_id;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 	public String getAddress() {
 		return address;
@@ -60,11 +45,25 @@ public class ShippingOrder {
 	public void setShippingOption(String shippingOption) {
 		this.shippingOption = shippingOption;
 	}
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
+	}
+	public String getTrackingCode() {
+		return trackingCode;
+	}
+	public void setTrackingCode(String trackingCode) {
+		this.trackingCode = trackingCode;
+	}
 	public ShippingStatus getStatus() {
 		return status;
 	}
 	public void setStatus(ShippingStatus status) {
 		this.status = status;
 	}
+	
+	
 	
 }
