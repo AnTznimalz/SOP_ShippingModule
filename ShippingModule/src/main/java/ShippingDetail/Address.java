@@ -52,7 +52,7 @@ public class Address {
 	}
 	
 	public String toString() {
-		return province+ district+ sub_district+ road+ number+ postal_code;
+		return province + " "+ district+ " "+ sub_district+" "+ road+" "+ number+" "+ postal_code;
 	}
 	
 }

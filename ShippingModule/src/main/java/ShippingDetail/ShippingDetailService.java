@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/shipping")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ShippingDetailService 
 {
 	ArrayList<ShippingOrder> shippings = new ArrayList<ShippingOrder>();
@@ -37,7 +39,7 @@ public class ShippingDetailService
 	}
 	
 	@RequestMapping(value = "/order",method=RequestMethod.POST)
-	public String  create(@RequestBody ShippingOrder s) throws InterruptedException, ExecutionException {
+	public String  create(@RequestBody Order s) throws InterruptedException, ExecutionException {
 		return FirebaseServices.createShippingOrder(s);
 //		return new ResponseEntity<ShippingOrder>(shippings.get(0), HttpStatus.OK);
 	}
@@ -54,6 +56,7 @@ public class ShippingDetailService
 	
 	@RequestMapping(value = "/update",method=RequestMethod.POST)
 	public String update(@RequestBody ShippingOrder s) throws InterruptedException, ExecutionException {
+		System.out.println("********************");
 		return FirebaseServices.saveShippingOrder(s);
 	}
 	

@@ -30,8 +30,10 @@ public class Order {
 	public List<ShippingOrder> toShippingOrder() {
 		ArrayList<ShippingOrder> lists = new ArrayList<ShippingOrder>();
 		List<String> arr = new ArrayList<String>();
-		for (Product p : this.product) { 		      
-	           if(arr.indexOf(p.getShop_id()) != -1) {
+		for (Product p : this.product) { 	
+			System.out.println(p.getShop_id());
+			System.out.println(arr.indexOf(p.getShop_id()));
+	           if(arr.indexOf(p.getShop_id()) == -1) {
 	        	 arr.add(p.getShop_id());
 	        	 
 	        	ShippingOrder s = new ShippingOrder();

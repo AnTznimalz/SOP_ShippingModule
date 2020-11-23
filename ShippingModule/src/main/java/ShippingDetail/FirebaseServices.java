@@ -20,11 +20,16 @@ import com.google.firebase.database.core.Path;
 @Service
 public class FirebaseServices {
 	
-	public static String createShippingOrder(ShippingOrder message) throws InterruptedException, ExecutionException {
-        Firestore db = FirestoreClient.getFirestore();
-        ApiFuture<DocumentReference> addedDocRef = db.collection("shippingOrder").add(message);
-        message.setId(addedDocRef.get().getId());
-        return saveShippingOrder(message);
+	public static String createShippingOrder(Order message) throws InterruptedException, ExecutionException {
+        List<ShippingOrder> lists = message.toShippingOrder();
+		Firestore db = FirestoreClient.getFirestore();
+		for(ShippingOrder s:lists) {
+			ApiFuture<DocumentReference> addedDocRef = db.collection("shippingOrder").add(s);
+	        s.setId(addedDocRef.get().getId());
+	        saveShippingOrder(s);
+		}
+		return "OK";
+        
     }
 
 	public static String saveShippingOrder(ShippingOrder message) throws InterruptedException, ExecutionException {
