@@ -3,50 +3,51 @@ package ShippingDetail;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class OrderModel {
 	private int user_id;
-	private Address address;
-	private ArrayList<Product> product;
+	private AddressModel address;
+	private ArrayList<ProductModel> product;
 	public int getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	public Address getAddress() {
+	public AddressModel getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
+	public void setAddress(AddressModel address) {
 		this.address = address;
 	}
 
-	public ArrayList<Product> getProduct() {
+	public ArrayList<ProductModel> getProduct() {
 		return product;
 	}
-	public void setProduct(ArrayList<Product> product) {
+	public void setProduct(ArrayList<ProductModel> product) {
 		this.product = product;
 	}
 	
-	public List<ShippingOrder> toShippingOrder() {
-		ArrayList<ShippingOrder> lists = new ArrayList<ShippingOrder>();
+	public List<ShippingOrderModel> toShippingOrder() {
+		ArrayList<ShippingOrderModel> lists = new ArrayList<ShippingOrderModel>();
 		List<String> arr = new ArrayList<String>();
-		for (Product p : this.product) { 	
+		for (ProductModel p : this.product) { 	
 			System.out.println(p.getShop_id());
 			System.out.println(arr.indexOf(p.getShop_id()));
 	           if(arr.indexOf(p.getShop_id()) == -1) {
 	        	 arr.add(p.getShop_id());
 	        	 
-	        	ShippingOrder s = new ShippingOrder();
+	        	ShippingOrderModel s = new ShippingOrderModel();
 	        	
 	       		s.setAddress(this.address.toString());
 	       		
 	       		s.setUser_id(this.user_id+"");
 	       		
 	       		
-	       		ArrayList<Item> its = new ArrayList<Item>();
-	       		Item it = new Item();
+	       		ArrayList<ItemModel> its = new ArrayList<ItemModel>();
+	       		ItemModel it = new ItemModel();
 	       		it.setId(p.getProduct_id());
 	       		it.setCount(p.getAmount());
+	       		it.setName(p.getProductName());
 	       		its.add(it);
 	       		s.setItems(its);
 	       		
@@ -55,11 +56,12 @@ public class Order {
 	       		
 	       		s.setShippingOption(p.getShipping_option_id());
 	       		
-	       		s.setStatus(ShippingOrder.ShippingStatus.waitForShipping);
+	       		s.setStatus(ShippingOrderModel.ShippingStatus.waitForShipping);
 	       		lists.add(s);
 	           }else {
-	        	   ShippingOrder s = lists.get(arr.indexOf(p.getShop_id()));
-	        	   Item it = new Item();
+	        	   ShippingOrderModel s = lists.get(arr.indexOf(p.getShop_id()));
+	        	   ItemModel it = new ItemModel();
+	        	   it.setName(p.getProductName());
 		       		it.setId(p.getProduct_id());
 		       		it.setCount(p.getAmount());
 		       		s.getItems().add(it);

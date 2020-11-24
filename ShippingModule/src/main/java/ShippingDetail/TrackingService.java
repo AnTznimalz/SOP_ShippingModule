@@ -52,11 +52,11 @@ import org.json.JSONObject;
 @EnableAutoConfiguration
 @RequestMapping("tracking")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class Tracking {
+public class TrackingService {
 
 	ArrayList<BarcodeModel> barcodes = new ArrayList<BarcodeModel>();
 
-	public Tracking() {
+	public TrackingService() {
 
 	}
 
@@ -135,7 +135,7 @@ public class Tracking {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(Tracking.class, args);
+		SpringApplication.run(TrackingService.class, args);
 
 	}
 }

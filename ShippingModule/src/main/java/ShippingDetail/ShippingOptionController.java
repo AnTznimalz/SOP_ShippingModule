@@ -17,38 +17,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/shipping_option")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class ShippingApp {
-	ArrayList<ShippingOption> shippingOptions = new ArrayList<ShippingOption>();
-	ShippingApp(){}
+public class ShippingOptionController {
+	ArrayList<ShippingOptionModel> shippingOptions = new ArrayList<ShippingOptionModel>();
+	ShippingOptionController(){}
 	
 	@RequestMapping(value="/create",method=RequestMethod.POST)
-	public String create(@RequestBody ShippingOption shipping) throws InterruptedException, ExecutionException {
-		return FirebaseShippingOption.createShippingOption(shipping);
+	public String create(@RequestBody ShippingOptionModel shipping) throws InterruptedException, ExecutionException {
+		return ShippingOptionService.createShippingOption(shipping);
 	}
 
 	@RequestMapping(value = "/all",method=RequestMethod.GET)
-	public List<ShippingOption> getAll() throws InterruptedException, ExecutionException {
-		return FirebaseShippingOption.getAllShippingOption();
+	public List<ShippingOptionModel> getAll() throws InterruptedException, ExecutionException {
+		return ShippingOptionService.getAllShippingOption();
 	}
 	
 	@RequestMapping(value = "/get/{id}",method=RequestMethod.GET)
-	public ShippingOption get(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
-		return FirebaseShippingOption.getShippingOption(id);
+	public ShippingOptionModel get(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
+		return ShippingOptionService.getShippingOption(id);
 	}
 	
 	@RequestMapping(value = "/shop/{shop_id}",method=RequestMethod.GET)
-	public List<ShippingOption> getShopShippings(@PathVariable("shop_id") final String shop_id) throws InterruptedException, ExecutionException {
-		return FirebaseShippingOption.getShippingOptionByField(shop_id, "shop_id");
+	public List<ShippingOptionModel> getShopShippings(@PathVariable("shop_id") final String shop_id) throws InterruptedException, ExecutionException {
+		return ShippingOptionService.getShippingOptionByField(shop_id, "shop_id");
 	}
 	
 	@RequestMapping(value = "/update",method=RequestMethod.POST)
-	public String update(@RequestBody ShippingOption s) throws InterruptedException, ExecutionException {
-		return FirebaseShippingOption.saveShippingOption(s);
+	public String update(@RequestBody ShippingOptionModel s) throws InterruptedException, ExecutionException {
+		return ShippingOptionService.saveShippingOption(s);
 	}
 	
 	@RequestMapping(value = "/delete/{id}",method=RequestMethod.DELETE)
 	public String delete(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
-		return FirebaseShippingOption.deleteShippingOption(id);
+		return ShippingOptionService.deleteShippingOption(id);
 	}
 	
 }

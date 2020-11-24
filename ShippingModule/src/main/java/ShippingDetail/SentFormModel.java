@@ -1,6 +1,6 @@
 package ShippingDetail;
 
-public class SentForm {
+public class SentFormModel {
 	private int shippingId;
 	private String trackingCode;
 	

@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 @RequestMapping("/shipping")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class ShippingDetailService 
+public class ShippingOrderController 
 {
-	ArrayList<ShippingOrder> shippings = new ArrayList<ShippingOrder>();
+	ArrayList<ShippingOrderModel> shippings = new ArrayList<ShippingOrderModel>();
 	
-	public ShippingDetailService() {
+	public ShippingOrderController() {
 	}
 	public static void main(String[] args) {
-		SpringApplication.run(ShippingDetailService.class, args);
+		SpringApplication.run(ShippingOrderController.class, args);
 	}
 
 	@RequestMapping(value = "/test",method=RequestMethod.GET)
@@ -39,41 +39,41 @@ public class ShippingDetailService
 	}
 	
 	@RequestMapping(value = "/order",method=RequestMethod.POST)
-	public String  create(@RequestBody Order s) throws InterruptedException, ExecutionException {
-		return FirebaseServices.createShippingOrder(s);
+	public String  create(@RequestBody OrderModel s) throws InterruptedException, ExecutionException {
+		return ShippingOrderService.createShippingOrder(s);
 //		return new ResponseEntity<ShippingOrder>(shippings.get(0), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/get/{id}",method=RequestMethod.GET)
-	public ShippingOrder get(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
-		return FirebaseServices.getShippingOrder(id);
+	public ShippingOrderModel get(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
+		return ShippingOrderService.getShippingOrder(id);
 	}
 	
 	@RequestMapping(value = "/all",method=RequestMethod.GET)
-	public List<ShippingOrder> getAll() throws InterruptedException, ExecutionException {
-		return FirebaseServices.getAllShippingOrder();
+	public List<ShippingOrderModel> getAll() throws InterruptedException, ExecutionException {
+		return ShippingOrderService.getAllShippingOrder();
 	}
 	
 	@RequestMapping(value = "/update",method=RequestMethod.POST)
-	public String update(@RequestBody ShippingOrder s) throws InterruptedException, ExecutionException {
+	public String update(@RequestBody ShippingOrderModel s) throws InterruptedException, ExecutionException {
 		System.out.println("********************");
-		return FirebaseServices.saveShippingOrder(s);
+		return ShippingOrderService.saveShippingOrder(s);
 	}
 	
 	@RequestMapping(value = "/delete/{id}",method=RequestMethod.GET)
 	public String delete(@PathVariable("id") final String id) throws InterruptedException, ExecutionException {
-		return FirebaseServices.deleteShippingOrder(id);
+		return ShippingOrderService.deleteShippingOrder(id);
 	}
 	
 	
 	@RequestMapping(value = "/shop/{shop_id}",method=RequestMethod.GET)
-	public List<ShippingOrder> getShopShippings(@PathVariable("shop_id") final String shop_id) throws InterruptedException, ExecutionException {
-		return FirebaseServices.getShippingOrderByField(shop_id, "shop_id");
+	public List<ShippingOrderModel> getShopShippings(@PathVariable("shop_id") final String shop_id) throws InterruptedException, ExecutionException {
+		return ShippingOrderService.getShippingOrderByField(shop_id, "shop_id");
 	}
 	
 	@RequestMapping(value = "/user/{user_id}",method=RequestMethod.GET)
-	public List<ShippingOrder> getUserShippings(@PathVariable("user_id") final String user_id) throws InterruptedException, ExecutionException {
-		return FirebaseServices.getShippingOrderByField(user_id, "user_id");
+	public List<ShippingOrderModel> getUserShippings(@PathVariable("user_id") final String user_id) throws InterruptedException, ExecutionException {
+		return ShippingOrderService.getShippingOrderByField(user_id, "user_id");
 	}
 
 }

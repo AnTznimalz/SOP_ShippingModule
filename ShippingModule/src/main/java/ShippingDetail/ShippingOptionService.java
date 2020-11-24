@@ -18,37 +18,32 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.database.core.Path;
 
 @Service
-public class FirebaseServices {
+public class ShippingOptionService {
 	
-	public static String createShippingOrder(Order message) throws InterruptedException, ExecutionException {
-        List<ShippingOrder> lists = message.toShippingOrder();
-		Firestore db = FirestoreClient.getFirestore();
-		for(ShippingOrder s:lists) {
-			ApiFuture<DocumentReference> addedDocRef = db.collection("shippingOrder").add(s);
-	        s.setId(addedDocRef.get().getId());
-	        saveShippingOrder(s);
-		}
-		return "OK";
-        
+	public static String createShippingOption(ShippingOptionModel message) throws InterruptedException, ExecutionException {
+        Firestore db = FirestoreClient.getFirestore();
+        ApiFuture<DocumentReference> addedDocRef = db.collection("shippingOption").add(message);
+        message.setId(addedDocRef.get().getId());
+        return saveShippingOption(message);
     }
 
-	public static String saveShippingOrder(ShippingOrder message) throws InterruptedException, ExecutionException {
+	public static String saveShippingOption(ShippingOptionModel message) throws InterruptedException, ExecutionException {
         Firestore db = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> future = db.collection("shippingOrder").document(message.getId()).set(message);
+        ApiFuture<WriteResult> future = db.collection("shippingOption").document(message.getId()).set(message);
         return future.get().getUpdateTime().toString();
     }
 	
-	public static ShippingOrder getShippingOrder(String id) throws InterruptedException, ExecutionException {
+	public static ShippingOptionModel getShippingOption(String id) throws InterruptedException, ExecutionException {
 		Firestore db = FirestoreClient.getFirestore();
-		DocumentReference docRef = db.collection("shippingOrder").document(id);
+		DocumentReference docRef = db.collection("shippingOption").document(id);
 		// asynchronously retrieve the document
 		ApiFuture<DocumentSnapshot> future = docRef.get();
 		// block on response
 		DocumentSnapshot document = future.get();
-		ShippingOrder s = null;
+		ShippingOptionModel s = null;
 		if (document.exists()) {
 		  // convert document to POJO
-		  s = document.toObject(ShippingOrder.class);
+		  s = document.toObject(ShippingOptionModel.class);
 		  System.out.println(s);
 		  return s;
 		} else {
@@ -58,39 +53,41 @@ public class FirebaseServices {
 	}
 	
 	
-	public static List<ShippingOrder> getAllShippingOrder() throws InterruptedException, ExecutionException {
+	public static List<ShippingOptionModel> getAllShippingOption() throws InterruptedException, ExecutionException {
 		Firestore db = FirestoreClient.getFirestore();
 		ApiFuture<QuerySnapshot> future =
-			    db.collection("shippingOrder").get();
+			    db.collection("shippingOption").get();
 			// future.get() blocks on response
 			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-			List<ShippingOrder> lists = new ArrayList<ShippingOrder>();
+			List<ShippingOptionModel> lists = new ArrayList<ShippingOptionModel>();
 			for (DocumentSnapshot document : documents) {
-				ShippingOrder s = document.toObject(ShippingOrder.class);
+				ShippingOptionModel s = document.toObject(ShippingOptionModel.class);
 				lists.add(s);
 			  System.out.println(document.getId() + " => " + s);
 			}		
 			return lists;
 	}
 	
-	public static List<ShippingOrder> getShippingOrderByField(String id, String field) throws InterruptedException, ExecutionException {
+	
+	public static List<ShippingOptionModel> getShippingOptionByField(String id, String field) throws InterruptedException, ExecutionException {
 		Firestore db = FirestoreClient.getFirestore();
 		ApiFuture<QuerySnapshot> future =
-			    db.collection("shippingOrder").whereEqualTo(field, id).get();
+			    db.collection("shippingOption").whereEqualTo(field, id).get();
 			// future.get() blocks on response
 			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-			List<ShippingOrder> lists = new ArrayList<ShippingOrder>();
+			List<ShippingOptionModel> lists = new ArrayList<ShippingOptionModel>();
 			for (DocumentSnapshot document : documents) {
-				ShippingOrder s = document.toObject(ShippingOrder.class);
+				ShippingOptionModel s = document.toObject(ShippingOptionModel.class);
 				lists.add(s);
 			  System.out.println(document.getId() + " => " + s);
 			}		
 			return lists;
 	}
 
-	public static String deleteShippingOrder(String id) throws InterruptedException, ExecutionException {
+	public static String deleteShippingOption(String id) throws InterruptedException, ExecutionException {
 		Firestore db = FirestoreClient.getFirestore();
-		ApiFuture<WriteResult> writeResult = db.collection("shippingOrder").document(id).delete();
+		ApiFuture<WriteResult> writeResult = db.collection("shippingOption").document(id).delete();
 		return writeResult.get().getUpdateTime().toString();
 	}
+	
 }

@@ -1,6 +1,6 @@
 package ShippingDetail;
 
-public class Address {
+public class AddressModel {
 	private String province, district, sub_district, road, number, postal_code;
 
 	public String getProvince() {

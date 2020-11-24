@@ -2,11 +2,11 @@ package ShippingDetail;
 
 import java.util.ArrayList;
 
-public class ShippingOrder {
+public class ShippingOrderModel {
 	private String id, shop_id, user_id;
 	private String address;
 	private String shippingOption;
-	private ArrayList<Item> items;
+	private ArrayList<ItemModel> items;
 	private String trackingCode;
 	
 	enum ShippingStatus {
@@ -45,10 +45,10 @@ public class ShippingOrder {
 	public void setShippingOption(String shippingOption) {
 		this.shippingOption = shippingOption;
 	}
-	public ArrayList<Item> getItems() {
+	public ArrayList<ItemModel> getItems() {
 		return items;
 	}
-	public void setItems(ArrayList<Item> items) {
+	public void setItems(ArrayList<ItemModel> items) {
 		this.items = items;
 	}
 	public String getTrackingCode() {

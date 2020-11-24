@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col">
                 <div class="list-group">
+                    <h1>Items</h1>
                     <div class="list-group" id="itemlist">
                     </div>
                     <h1>Status</h1>
@@ -57,7 +58,7 @@
                             <option value='waitForShipping'>waitForShipping</option>
                             <option value='Shipping'>Shipping</option>
                             <option value='Success'>Success</option>
-		  
+
                         </select>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="updateShippingOrder()">Update</button>
@@ -66,6 +67,7 @@
         </div>
     </div>
     <script>
+        let selectedItems = [];
         // Option in shipping option
         axios
             .get("http://localhost:8761/shipping_option/all")
@@ -97,11 +99,12 @@
                 $("#shippingOption").val(input.shippingOption);
                 console.log(input.shippingOption);
                 $("#status").val(input.status);
+                selectedItems = input.items ? input.items : []
+                updateSelectedItemsForm()
                 axios.post('http://localhost:8761/tracking/getItem', {
                         "barcode": trackingCode.value
                     }).then(response => {
                         const xxx = trackingCode.value
-                        console.log(xxx)
                         const status = response.data.body
                         const badcodeList = JSON.parse(status).response.items[xxx]
                         console.log(badcodeList)
@@ -120,29 +123,33 @@
                     .catch(err => {
                         console.error(err)
                     })
+
+
+
+
+                axios.get('https://e1062eb5adf1.ngrok.io/product/get/all').then(response => {
+                        console.log("product")
+                        console.log(response.data)
+                        items = response.data
+                        initItemField()
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
+
+
+
             })
             .catch(err => {
                 console.error(err)
             })
     </script>
     <script>
-        let items = [{
-            id: "1",
-            name: "Table"
-        }, {
-            id: "2",
-            name: "Hat"
-        }, {
-            id: "3",
-            name: "Pen"
-        }, {
-            id: "4",
-            name: "Camera"
-        }, ];
-        let selectedItems = [];
+        let items = []
 
         function initItemField() {
             let itemField = document.getElementById('itemlist');
+            itemField.innerHTML = "";
             for (let i = 0; i < items.length; i++) {
                 itemField.innerHTML += `<button type="button" class="list-group-item list-group-item-action" id="${i}" onclick="selectItem(this.id)">${items[i].name}</button>`
             }
@@ -153,7 +160,6 @@
         function updateSelectedItemsForm() {
             let selectedItemsFormField = document.getElementById('selectedItemsForm');
             selectedItemsFormField.innerHTML = '';
-            console.log(selectedItems);
             if (selectedItems.length == 0) {
                 selectedItemsFormField.innerHTML += `<div class="col-12 btn btn-secondary m-1">None</div>`;
             }
@@ -184,7 +190,7 @@
                 'id': order_id,
                 'user_id': user,
                 'address': address,
-                'item': selectedItems,
+                'items': selectedItems,
                 'shop_id': shopId,
                 'shippingOption': shippingOption,
                 'trackingCode': trackingCode,
@@ -204,7 +210,6 @@
     </script>
     <script>
         // Thai Post
-        console.log(trackingCode.value);
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

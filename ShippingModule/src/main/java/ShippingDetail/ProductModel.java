@@ -1,13 +1,20 @@
 package ShippingDetail;
 
-public class Product {
-	private String shop_id, shipping_option_id;
+public class ProductModel {
+	private String shop_id, shipping_option_id, productName;
 	private int amount, product_id;
 	public String getShop_id() {
 		return shop_id;
 	}
 	public void setShop_id(String shop_id) {
 		this.shop_id = shop_id;
+	}
+	
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public int getProduct_id() {
 		return product_id;
